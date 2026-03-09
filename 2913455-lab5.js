@@ -11,17 +11,17 @@ const { title } = require('node:process');
     let books = [];
     app.get("/whoami",(req,res) => {
 
-        res.send({studentNumber:"2913455"});
+        res.status(200).send({studentNumber:"2913455"});
     });
 
     app.get("/books",(req,res) =>{
-        res.send(books);
+        res.status(200).send(books);
     });
 
     app.get("/books/:id",(req,res) =>{
         const book = books.find(b => b.id === req.params.id)
         if(!book){res.status(404).send({"error":"Book not found"});return;};
-        res.send(book);
+        res.status(200).send(book);
     })
 
     app.post("/books",(req,res) =>{
@@ -31,7 +31,7 @@ const { title } = require('node:process');
         }
         book = req.body;
         books.push(book);
-        res.send(book);
+        res.status(201).send(book);
     });
 
     app.put("/books/:id",(req,res) =>{
@@ -39,7 +39,7 @@ const { title } = require('node:process');
         if(!book){res.status(404).send({"error":"Book not found"});return;};
        
         book.title = req.body.title;
-        res.send(book);
+        res.status(200).send(book);
     });
 
     app.delete("/books/:id",(req,res) =>{
@@ -48,6 +48,7 @@ const { title } = require('node:process');
         
         const index = books.indexOf(book);
         books.splice(index,1);
+        res.status(200);
     });
 
     
@@ -56,7 +57,7 @@ const { title } = require('node:process');
         if(!book){res.status(404).send({"error":"Book not found"});return;};
         
         book.details.push(request.body);
-        res.send(book);
+        res.status(201).send(book);
     });
 
     app.delete("/books/:id/details/:detailId",(req,res) =>{
@@ -68,6 +69,7 @@ const { title } = require('node:process');
         
         const index = books.details.indexOf(detail);
         books.details.splice(index,1);
+        res.status(200);
     });
 
 
