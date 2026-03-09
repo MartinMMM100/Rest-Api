@@ -1,6 +1,4 @@
     const express = require('express');
-const { request } = require('node:http');
-const { title } = require('node:process');
     const app = express();
     const PORT = 3000;
 
@@ -56,7 +54,7 @@ const { title } = require('node:process');
         const book = books.find(b => b.id === req.params.id)
         if(!book){res.status(404).send({"error":"Book not found"});return;};
         
-        book.details.push(request.body);
+        book.details.push(req.body);
         res.status(201).send(book);
     });
 
